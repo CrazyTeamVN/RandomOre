@@ -1,0 +1,5 @@
+name: RandomBlock
+api: 3.0.0-ALPHA11
+version: 2.0.0
+main: RandomBlockGen\Generate
+author: CrazyTeam
