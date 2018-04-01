@@ -22,36 +22,30 @@ class Generate extends PluginBase implements Listener{
 
     public function onBreak(BlockBreakEvent $ev){
         $block = $ev->getBlock();
-        $p = $ev->getPlayer();
-        if($block->getId() === Block::COBBLESTONE);
-         $b = new Vector3($block->getX(),$block->getY(),$block->getZ());
-         $result = rand(1,8);
-			     switch($result){
-		case 1:
-            $block->getLevel()->setBlock($b,Block::DIAMOND_BLOCK);
-            break;
-          case 2:
-      	  $block->getLevel->setBlock($block, Block::EMERALD_BLOCK);
-            break;
-          case 3:
-      	  $block->getLevel->setBlock($block, Block::REDSTONE_BLOCK);
-            break;
-          case 4:
-      	  $block->getLevel->setBlock($block, Block::COAL_BLOCK);
-            break;
-          case 5:
-      	  $block->getLevel->setBlock($block, Block::IRON_BLOCK);
-            break;
-          case 6:
-      	  $block->getLevel->setBlock($block, Block::GOLD_BLOCK);
-            break;
-          case 7:
-      	  $block->getLevel->setBlock($block, Block::LAPIS_BLOCK);
-            break;
-          case 8:
-      	  $block->getLevel->setBlock($block, Block::COBBLESTONE);
-            break;
-        return true;
+        $player = $ev->getPlayer();
+        if($block->getId() == Block::COBBLESTONE);
+         $vec = new Vector3($block->getX(),$block->getY(),$block->getZ());
+         $ore = mt_rand(1,10000);
+          switch($ore); 
+            if($ore <= 50) {
+        $block->getLevel()->setBlock($vec, Block::get(Block::DIAMOND_BLOCK));
+            }elseif($ore => 50 && $ore <= 150) { 
+        $block->getLevel()->setBlock($vec, Block::get(Block::EMERALD_BLOCK));
+            }elseif($ore => 150 && $ore <= 275) {
+        $block->getLevel()->setBlock($vec, Block::get(Block::GOLD_BLOCK));
+            }elseif($ore => 275 && $ore <= 500) {
+        $block->getLevel()->setBlock($vec, Block::get(Block::IRON_BLOCK));
+    
+            }elseif($ore => 500 && $ore <= 1075) {
+        $block->getLevel()->setBlock($vec, Block::get(Block::REDSTONE_BLOCK));
+            }elseif($ore => 1075 && $ore <= 2100) {
+        $block->getLevel()->setBlock($vec, Block::get(Block::LAPIS_BLOCK));
+        
+            }elseif($ore => 2100 && $ore <= 4190) {
+        $block->getLevel()->setBlock($vec, Block::get(Block::COAL_BLOCK));
+            }elseif($ore => 4190 && $ore <= 10000)  {
+        $block->getLevel()->setBlock($vec, Block::get(Block::COBBLESTONE));
+
       }
     }
   }
