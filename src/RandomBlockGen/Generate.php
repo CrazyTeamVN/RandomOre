@@ -12,6 +12,16 @@ use pocketmine\item\Item;
 use pocketmine\event\Listener;
 use pocketmine\level\Level;
 use pocketmine\block\Block;
+use pocketmine\block\Iron;
+use pocketmine\block\Cobblestone;
+use pocketmine\block\Diamond;
+use pocketmine\block\Emerald;
+use pocketmine\block\Gold;
+use pocketmine\block\Coal;
+use pocketmine\block\Lava;
+use pocketmine\block\Lapis;
+use pocketmine\block\Redstone;
+use pocketmine\block\Water;
 
 class Generate extends PluginBase implements Listener{
     
