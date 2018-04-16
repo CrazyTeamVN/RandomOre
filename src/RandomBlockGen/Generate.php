@@ -7,7 +7,7 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
-use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\event\block\BlockUpdateEvent;
 use pocketmine\item\Item;
 use pocketmine\event\Listener;
 use pocketmine\level\Level;
@@ -20,32 +20,47 @@ class Generate extends PluginBase implements Listener{
         $this->getServer()->getPluginManager()->registerEvents($this,$this);
     }
 
-    public function onBreak(BlockBreakEvent $ev){
-        $block = $ev->getBlock();
-        $player = $ev->getPlayer();
-        if($block->getId() == Block::COBBLESTONE);
-         $vec = new Vector3($block->getX(),$block->getY(),$block->getZ());
-         $ore = mt_rand(1,10000);
-          switch($ore); 
-            if($ore <= 50) {
-        $block->getLevel()->setBlock($vec, Block::get(Block::DIAMOND_BLOCK));
-            }elseif($ore => 50 && $ore <= 150) { 
-        $block->getLevel()->setBlock($vec, Block::get(Block::EMERALD_BLOCK));
-            }elseif($ore => 150 && $ore <= 275) {
-        $block->getLevel()->setBlock($vec, Block::get(Block::GOLD_BLOCK));
-            }elseif($ore => 275 && $ore <= 500) {
-        $block->getLevel()->setBlock($vec, Block::get(Block::IRON_BLOCK));
-    
-            }elseif($ore => 500 && $ore <= 1075) {
-        $block->getLevel()->setBlock($vec, Block::get(Block::REDSTONE_BLOCK));
-            }elseif($ore => 1075 && $ore <= 2100) {
-        $block->getLevel()->setBlock($vec, Block::get(Block::LAPIS_BLOCK));
-        
-            }elseif($ore => 2100 && $ore <= 4190) {
-        $block->getLevel()->setBlock($vec, Block::get(Block::COAL_BLOCK));
-            }elseif($ore => 4190 && $ore <= 10000)  {
-        $block->getLevel()->setBlock($vec, Block::get(Block::COBBLESTONE));
-
-      }
+        public function onBlockSet(BlockUpdateEvent $event){
+        $block = $event->getBlock();
+        $water = false;
+        $lava = false;
+        for ($i = 2; $i <= 5; $i++) {
+            $nearBlock = $block->getSide($i);
+            if ($nearBlock instanceof Water) {
+                $water = true;
+            } else if ($nearBlock instanceof Lava) {
+                $lava = true;
+            }
+            if ($water && $lava) {
+                $id = mt_rand(1, 20);
+                switch ($id) {
+                    case 2;
+                        $newBlock = new Iron();
+                        break;
+                    case 4;
+                        $newBlock = new Gold();
+                        break;
+                    case 6;
+                        $newBlock = new Emerald();
+                        break;
+                    case 8;
+                        $newBlock = new Coal();
+                        break;
+                    case 10;
+                        $newBlock = new Redstone();
+                        break;
+                    case 12;
+                        $newBlock = new Diamond();
+                        break;
+					case 14;
+                        $newBlock = new Lapis();
+                        break;	
+                    default:
+                        $newBlock = new Cobblestone();
+                }
+                $block->getLevel()->setBlock($block, $newBlock, true, false);
+                return;
+            }
+        }
     }
-  }
+}
